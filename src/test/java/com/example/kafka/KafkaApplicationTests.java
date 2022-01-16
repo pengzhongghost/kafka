@@ -30,6 +30,10 @@ class KafkaApplicationTests {
     // todo 7.key value的序列化类
     properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
     properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+    // todo 8.添加分区器
+    properties.put(
+        ProducerConfig.PARTITIONER_CLASS_CONFIG,
+        "org.apache.kafka.clients.producer.RoundRobinPartitioner");
     // TODO 2.发送
     KafkaProducer<String, String> producer = new KafkaProducer(properties);
     // todo 1.异步发送

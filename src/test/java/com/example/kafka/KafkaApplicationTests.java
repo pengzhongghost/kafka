@@ -87,7 +87,12 @@ class KafkaApplicationTests {
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         //消费者组
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "consumer");
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "consumer01");
+        //What to do when there is no initial offset in Kafka or if the current offset does not exist any more on the server
+        //当消费者组名第一次消费此属性会生效，或者这个数据已经被删除了会生效
+        //换了一个组或者offset已经不存在了会生效
+        //默认是latest，以前的数据消费不到,earliest从最开始开始消费
+        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         //创建消费者
         KafkaConsumer<String, String> consumer = new KafkaConsumer(properties);
         //订阅主题

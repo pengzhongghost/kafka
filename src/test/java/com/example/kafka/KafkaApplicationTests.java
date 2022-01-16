@@ -47,6 +47,8 @@ class KafkaApplicationTests {
         properties.put(
                 ProducerConfig.PARTITIONER_CLASS_CONFIG,
                 "org.apache.kafka.clients.producer.RoundRobinPartitioner");
+        //todo 9.添加拦截器
+        properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, Lists.newArrayList("com.example.kafka.TimeInterceptor"));
         // TODO 2.发送
         KafkaProducer<String, String> producer = new KafkaProducer(properties);
         // todo 1.异步发送

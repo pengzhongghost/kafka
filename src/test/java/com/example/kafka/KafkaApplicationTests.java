@@ -10,7 +10,7 @@ import java.util.Properties;
 class KafkaApplicationTests {
 
   @Test
-  void contextLoads() throws Exception {
+  void contextLoads() {
     // TODO 1.配置
     Properties properties = new Properties();
     // ProducerConfig定义了所有的配置
@@ -38,8 +38,9 @@ class KafkaApplicationTests {
     //    }
     // todo 2.带异步回调发送
     for (int i = 0; i < 10; i++) {
+      // 指定分区按照指定的分区存储,否则按照key的hash值分区的，都没有指定则按照轮询分区存储
       producer.send(
-          new ProducerRecord<String, String>("first", "test" + i),
+          new ProducerRecord<String, String>("first", "ni", "test" + i),
           new Callback() {
             @Override
             public void onCompletion(RecordMetadata metadata, Exception exception) {
